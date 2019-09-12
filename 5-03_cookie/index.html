@@ -38,6 +38,7 @@ document.getElementById('form').onsubmit = function() {
         Cookies.set('answered','yes', {expires: 7});
     }
 };
+var aa = Cookies.get('answered');
 document.getElementById('remove').onclick = function() {
     Cookies.remove('answered');
 };
