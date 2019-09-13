@@ -22,9 +22,9 @@
             <img src="images/img1.jpg" id="bigimg">
         </div>
         <ul>
-            <li><img src="images/thumb-img1.jpg" class="thumb" data-image="img1.jpg"></li>
-            <li><img src="images/thumb-img2.jpg" class="thumb" data-image="img2.jpg"></li>
-            <li><img src="images/thumb-img3.jpg" class="thumb" data-image="img3.jpg"></li>
+            <li><img src="images/thumb-img1.jpg" class="thumb" data-image="images/img1.jpg"></li>
+            <li><img src="images/thumb-img2.jpg" class="thumb" data-image="images/img2.jpg"></li>
+            <li><img src="images/thumb-img3.jpg" class="thumb" data-image="images/img3.jpg"></li>
         </ul>
     </div>
 </section>
@@ -34,10 +34,11 @@
     var thumbs = document.querySelectorAll('.thumb');
     for(var i = 0; i < thumbs.length; i++) {
         thumbs[i].onclick = function() {
-            console.log(this.dataset.image);
+            // console.log(this.dataset.image);
+            document.getElementById('bigimg').src = this.dataset.image;
         };
     }
-    console.log(thumbs);
+    // console.log(thumbs);
 </script>
 </body>
 </html>
