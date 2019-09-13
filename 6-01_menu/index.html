@@ -6,6 +6,7 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>template</title>
 <link href="style.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -38,7 +39,12 @@
 </section>
 </div><!-- /.main-wrapper -->
 <footer>JavaScript Samples</footer>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script>
+$(function(){
+    $('.submenu h3').on('click', function(){
+        $(this).next().toggleClass('hidden');
+    });
+});
+</script>
 </body>
 </html>
