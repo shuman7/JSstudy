@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<link rel="stylesheet" href="style.css">
+<title>template</title>
+<link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>タイトル</h1>
+<h2>サブタイトル</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+<section>
+	<div class="center">
+        <div>
+            <img src="images/img1.jpg" id="bigimg">
+        </div>
+        <ul>
+            <li><img src="images/thumb-img1.jpg" class="thumb" data-image="img1.jpg"></li>
+            <li><img src="images/thumb-img2.jpg" class="thumb" data-image="img2.jpg"></li>
+            <li><img src="images/thumb-img3.jpg" class="thumb" data-image="img3.jpg"></li>
+        </ul>
+    </div>
+</section>
+</div><!-- /.main-wrapper -->
+<footer>JavaScript Samples</footer>
+<script>
+    var thumbs = document.querySelectorAll('.thumb');
+    for(var i = 0; i < thumbs.length; i++) {
+        thumbs[i].onclick = function() {
+            console.log(this.dataset.image);
+        };
+    }
+    console.log(thumbs);
+</script>
+</body>
+</html>
