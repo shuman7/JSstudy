@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>template</title>
-<link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header>
@@ -16,9 +16,36 @@
 </header>
 <div class="main-wrapper">
 <section>
-	
+	<div class="slide">
+        <div class="image_box">
+            <img src="images/image1.jpg" alt="" id="main_image">
+        </div>
+        <div class="toolbar">
+            <div class="nav">
+                <div id="prev"></div>
+                <div id="next"></div>
+            </div>
+        </div>
+    </div>
 </section>
 </div><!-- /.main-wrapper -->
 <footer>JavaScript Samples</footer>
+<script>
+var images = ['images/image1.jpg', 'images/image2.jpg', 'images/image3.jpg', 'images/image4.jpg', 'images/image5.jpg'];
+var current = 0;
+var changeImage = function(num) {
+    if(current + num >= 0 && current + num < images.length) {
+        current += num;
+        document.getElementById('main_image').src = images[current];
+    }
+};
+
+document.getElementById('prev').onclick = function() {
+    changeImage(-1);
+};
+document.getElementById('next').onclick = function() {
+    changeImage(1);
+};
+</script>
 </body>
 </html>
