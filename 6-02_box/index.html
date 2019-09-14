@@ -4,21 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
-<title>template</title>
+<title>6-02_box</title>
 <link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+<style>
+#box {
+    margin: 0 auto;
+    max-width: 960px;
+    display: none;
+}
+#box ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#box li {
+    padding: 8px 0 8px 0;
+    color: #20567d;
+    border-bottom: 1px solid #ffffff;
+}
+.header-contents {
+    position: relative;
+}
+#box_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 0 8px 8px;
+    padding: 6px 20px 6px 20px;
+    background-color: #fff;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
+    <div id="box">
+        <ul>
+            <li>ホーム</li>
+            <li>アクセス</li>
+            <li>リクルート</li>
+            <li>アバウト</li>
+        </ul>
+    </div>
 <header>
 <div class="header-contents">
-<h1>タイトル</h1>
-<h2>サブタイトル</h2>
+    <div id="box_btn">Menu</div>
+<h1>ボックスを開く・たたむ</h1>
+<h2>アニメーション機能を使う</h2>
 </div><!-- /.header-contents -->
 </header>
 <div class="main-wrapper">
 <section>
-	
+    
 </section>
 </div><!-- /.main-wrapper -->
 <footer>JavaScript Samples</footer>
+<script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+$(function() {
+    $('#box_btn').on('click', function() {
+        $('#box').slideToggle(1000);
+    })
+})
+</script>
 </body>
 </html>
