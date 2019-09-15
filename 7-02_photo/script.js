@@ -32,10 +32,24 @@ $(function(){
                         )
                     )
                     .append(
-                        $('<p class="caption"></p>').text(caption + '♡' + this.likes.count)
+                        $('<p class="caption"></p>').text(caption + '♡' + this.likes.count)//<div class="img_block"></div>に<p class="caption"></p>を挿入する。<p class="caption"></p>にはcaption♡ハート数が挿入される。
                     )
                 );
             });
+            if($('#pagination').children().length === 0){
+                $('#pagination').append(
+                    $('<a class="next"></a>').attr('href', '#').text('もっと見る').on('click', function(e){
+                        e.preventDefault();
+                        if(photoData.pagination.next_url){
+                            getData(photoData.pagination.next_url);
+                        }
+                    })
+                );
+            }
+
+            if(!photoData.pagination.next_url){
+                $('.next').remove();
+            }
         })
         .fail(function(){
             $('#gallery').text(textStatus);
@@ -44,5 +58,3 @@ $(function(){
 
     getData(dataURL);
 });
-
-なにに;をつけるのかよくわからない
