@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>template</title>
+<link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+<style>
+@charset "UTF-8";
+/* CSS Document */
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	background-image: url(../images/body-bg.png);
+}
+html, body {
+	height: 100%;
+}
+header{
+	width: 100%;
+	background-color: #23628f;
+	background-image: url(../images/header-bg.png);
+	background-position: 50% 50%;
+	border-top: #20567d 10px solid;
+	box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+	position: relative;
+	z-index: 10;
+}
+.header-contents{
+	box-sizing:border-box;
+	max-width: 960px;
+	margin: 0 auto;
+	min-height: 100px;
+	background-image: url(../images/header-logo.png);
+	background-repeat: no-repeat;
+	background-position: 10px 50%;
+}
+.header-contents h1,
+.header-contents h2{
+	margin: 0;
+	color: #fff;
+	line-height: 1;
+}
+.header-contents h1{
+	padding: 30px 0 10px 85px;
+	font-size: 24px;
+}
+.header-contents h2{
+	padding: 0 0 0 85px;
+	font-size: 14px;
+	font-weight: normal;
+}
+.main-wrapper{
+	position: relative;
+	box-sizing:border-box;
+	max-width: 960px;
+	margin: 0 auto;
+	padding:30px 30px;
+	background-color: #fff;
+	border-left: #dadada 1px solid;
+	border-right: #dadada 1px solid;
+	min-height: 80%;
+	min-height: calc(100% - 200px);
+}
+footer{
+	box-sizing:border-box;
+	max-width: 960px;
+	margin: 0 auto 10px auto;
+	padding:15px 30px;
+	background-color: #23628f;
+	border: #dadada 1px solid;
+	border-radius: 0 0 10px 10px;
+	color: #fff;
+	font-size: 12px;
+	text-align: right;
+}
+a{
+	color: #5e78c1;
+	text-decoration: none;
+}
+a:hover{
+	color: #b04188;
+	text-decoration: underline;
+}
+
+@media (max-width: 600px){
+	header{
+		background-position: 32% 50%;
+		border-top: #20567d 5px solid;
+	}
+	.header-contents{
+		min-height: 60px;
+		background-size: 40px 40px;
+		background-position: 10px 50%;
+	}
+	.header-contents h1{
+		padding: 15px 0 5px 55px;
+		font-size: 16px;
+	}
+	.header-contents h2{
+		padding: 0 0 0 55px;
+		font-size: 12px;
+	}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>seno-log最新記事一覧</h1>
+<h2>プログラミングの情報をお届け</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+<section>
+	<ul id="latest">
+        <li></li>
+    </ul>
+</section>
+</div><!-- /.main-wrapper -->
+<footer>JavaScript Samples</footer>
+<script src="//code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+$(function(){//HTMLが読み込まれてからjQueryを読み込む
+    var rssURL = "http://seno-log.com/feed/"; //変数rssURLに右のURLを代入
+    $.ajax({
+        url: 'cdxml.php',//cdxml.phpファイルを読み込む
+        type: 'GET',//cdxml.phpファイルをgetで読みこむ
+        dataType: 'xml',//記載されているデータの記載されているタイプを指定
+        data: {
+            url: rssURL
+        }
+    })
+    .done(function(data){ 
+        $(data).find('channel item').each(function(){ //RSSフィールド全体が保存されたパラメータdataのchannel要素に含まれる全てのitemを取得し、繰り返し{}内の処理を実行
+            var itemTitle = $(this/*繰り返しの対象になっているitemのこと*/).find('title').text(); //変数itemTileの定義 titleを取得し<title></title>に囲まれたコンテンツを読み取りitemTitleに代入
+            var permaLink = $(this).find('link').text(); //変数permaLinkの定義 thisのlinkをpermaLinkに代入
+
+            var pubText = $(this).find('pubDate').text(); //pubDateのコンテンツをpubTextに代入
+            var pubDate = new Date(pubText); //DateオブジェクトにpubTextの値を入れて初期化し、pubDateに代入
+            var dateString = '(' + pubDate.getFullYear() + '/' + (pubDate.getMonth() + 1) + '/' + pubDate.getDate() + ')'; //pubDateの年/月/日をdateStringに代入
+            $('#latest').append( //ulの#lateを取得し↓
+                $('<li></li>').append(//<li></li>を挿入。<li></li>を取得し↓
+                    $('<a></a>')//<a></a>を挿入↓
+                    .attr('href', permaLink)//<a></a>のhrefにpermaLinkの値を設定
+                    .text(itemTitle)//itemTitleのテキストコンテンツをパラメータの値に設定
+                )
+                .append(dateString)//#latestにdateStringを代入
+            )
+        });
+    })
+    .fail(function(){//データが読み込めなかった場合の処理
+        window.alert('データの読み込みに失敗しました。');
+    });
+});
+</script>
+</body>
+</html>
